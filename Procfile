@@ -1,1 +1,1 @@
-web: gunicorn django-soft-ui-design.wsgi
+web: gunicorn core.wsgi
