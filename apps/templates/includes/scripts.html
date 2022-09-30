@@ -4,5 +4,23 @@
   <script src="{{ ASSETS_ROOT }}/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="{{ ASSETS_ROOT }}/js/plugins/prism.min.js"></script>
   <script src="{{ ASSETS_ROOT }}/js/plugins/parallax.min.js"></script>
-  <link rel="stylesheet" type='text/css' href="https://smsmagicemail.herokuapp.com/conversive/v2/getmedia?key=conversiveButtonForTest.css" />
-<script type="module" src="https://smsmagicemail.herokuapp.com/conversive/v2/getmedia?key=conversiveButtonForTest.js"></script>
+  <script type="text/javascript">
+    !async function(){
+      try {
+      let buttonId = 'f6442fee-1155-45cd-9621-792cb2191b89';
+      let host= 'https://dev-app.txtbox.in', ua = navigator.userAgent, device = 'desktop', url='', lt='', lg='';
+      if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua) || /Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
+        device = "mobile";} 
+      navigator.geolocation ? navigator.geolocation.getCurrentPosition((position) => { lt= position.coords.latitude ; lg= position.coords.longitude;
+        addConversiveBtn()}, (err)=> { addConversiveBtn(); } ,{timeout: 3000}) : addConversiveBtn();  
+      async function addConversiveBtn() {
+        url = host + `/v1/conversive/button/run/` +buttonId+`?latitude=` +lt + `&longitude=` +lg +`&viewPort=`+device;
+        let res = await fetch(url).then((rj) => rj.json()).then(data => {return data;}).catch(error => {});
+        if(res.response.status === 'success') { let jd = res.response; const hd = document.getElementsByTagName('head')[0]; const l = document.createElement('link'); 
+        const bs = document.createElement('script'); l.rel = 'stylesheet'; l.type = 'text/css'; l.href = jd.data.button_config.cssLocation; hd.appendChild(l);
+        bs.type = 'text/javascript'; bs.src = jd.data.button_config.scriptLocation; hd.appendChild(bs); bs.onload = ()=> { displayButton(jd.data);}}}
+      } catch(err) { //SEND LOGS
+      } 
+    }();
+  </script> 
+
