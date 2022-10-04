@@ -8,19 +8,20 @@
     !async function(){
       try {
       let buttonId = 'f6442fee-1155-45cd-9621-792cb2191b89';
-      let host= 'https://dev-app.txtbox.in', ua = navigator.userAgent, device = 'desktop', url='', lt='', lg='';
-      if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua) || /Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
-        device = "mobile";} 
-      navigator.geolocation ? navigator.geolocation.getCurrentPosition((position) => { lt= position.coords.latitude ; lg= position.coords.longitude;
-        addConversiveBtn()}, (err)=> { addConversiveBtn(); } ,{timeout: 3000}) : addConversiveBtn();  
+      let host= 'https://dev-app.txtbox.in', ua = navigator.userAgent, url='', lt='', lg='',max_timeout=3000;
+      if(navigator.geolocation) navigator.geolocation.getCurrentPosition((position) => { lt= position.coords.latitude ; lg= position.coords.longitude;
+        addConversiveBtn()}, (err)=> { addConversiveBtn(); } ,{timeout: max_timeout});  
+      setTimeout(addConversiveBtn, max_timeout);
       async function addConversiveBtn() {
-        url = host + `/v1/conversive/button/run/` +buttonId+`?latitude=` +lt + `&longitude=` +lg +`&viewPort=`+device;
+        url = host + `/v1/conversive/button/run/` +buttonId+`?latitude=` +lt + `&longitude=` +lg;
         let res = await fetch(url).then((rj) => rj.json()).then(data => {return data;}).catch(error => {});
         if(res.response.status === 'success') { let jd = res.response; const hd = document.getElementsByTagName('head')[0]; const l = document.createElement('link'); 
-        const bs = document.createElement('script'); l.rel = 'stylesheet'; l.type = 'text/css'; l.href = jd.data.button_config.cssLocation; hd.appendChild(l);
-        bs.type = 'text/javascript'; bs.src = jd.data.button_config.scriptLocation; hd.appendChild(bs); bs.onload = ()=> { displayButton(jd.data);}}}
+        const bs = document.createElement('script'); l.rel = 'stylesheet'; l.type = 'text/css'; 
+        l.href = jd.data.button_config.cssLocation; l.onload = ()=> {hd.appendChild(bs)}; hd.appendChild(l);
+        bs.type = 'text/javascript'; bs.src = jd.data.button_config.scriptLocation;
+        bs.onload = ()=> { displayButton(jd.data);}}}
       } catch(err) { //SEND LOGS
       } 
     }();
-  </script> 
+</script>
 
