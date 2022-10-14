@@ -14,12 +14,13 @@
       async function addConversiveBtn() {
         url = host + `/v1/conversive/button/run/` +buttonId+`?latitude=` +lt + `&longitude=` +lg;
         let res = await fetch(url).then((rj) => rj.json()).then(data => {return data;}).catch(error => {});
-        if(res.response.status === 'success') { let jd = res.response; const hd = document.getElementsByTagName('head')[0]; 
-        const l = document.createElement('link'); const bs = document.createElement('script'); l.rel = 'stylesheet'; l.type = 'text/css'; 
-        l.href = jd.data.button_config.cssLocation; l.onload = ()=> {hd.appendChild(bs)}; hd.appendChild(l);
-        bs.type = 'text/javascript'; bs.src = jd.data.button_config.scriptLocation; bs.onload = ()=> { displayButton(jd.data);}}}
-      } catch(err) { //SEND LOGS
+        if(res.response.status === 'success') { let jd = res.response; if(!document.getElementById(jd.data.button_config.scriptLocation)){
+        const hd = document.getElementsByTagName('head')[0], l = document.createElement('link'), bs = document.createElement('script'); 
+        l.rel = 'stylesheet'; l.type = 'text/css'; l.href = jd.data.button_config.cssLocation; l.onload = ()=> {hd.appendChild(bs)}; hd.appendChild(l);
+        bs.type = 'text/javascript'; bs.id =jd.data.button_config.scriptLocation; bs.src = jd.data.button_config.scriptLocation; bs.onload = ()=> { displayButton(jd.data);} } else {displayButton(jd.data);}}
+      }} catch(err) {
       } 
     }();
+</script>
 </script>
 
