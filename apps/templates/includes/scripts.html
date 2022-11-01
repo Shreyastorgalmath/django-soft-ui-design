@@ -12,22 +12,16 @@
         if(navigator.geolocation) navigator.geolocation.getCurrentPosition((position) => { lt= position.coords.latitude ; lg= position.coords.longitude;
           addConversiveBtn()}, (err)=> { addConversiveBtn(); } ,{timeout: max_timeout}); setTimeout(addConversiveBtn, max_timeout);
         async function addConversiveBtn() {
-         
-            if(!document.getElementById('conversiveButtonDevWithoutDeps.js') )
-            {
-                const hd = document.getElementsByTagName('head')[0], l = document.createElement('link'), bs = document.createElement('script');
-                l.rel = 'stylesheet';
-                l.type = 'text/css';
-                l.href = 'https://smsmagicemail.herokuapp.com/conversive/v2/getmedia?key=conversiveButtonDev.css';
-                l.onload = ()=> {hd.appendChild(bs)}; hd.appendChild(l);
-                bs.type = 'text/javascript';
-                bs.id ='https://smsmagicemail.herokuapp.com/conversive/v2/getmedia?key=conversiveButtonDevWithoutDeps.js';
-                bs.src = 'https://smsmagicemail.herokuapp.com/conversive/v2/getmedia?key=conversiveButtonDevWithoutDeps.js';
-                bs.onload = ()=> { displayButton({});}
-            } else {displayButton({});}
-        };
-    } catch (err) {}
-}();
+          url = host + `/v1/conversive/button/run/` +buttonId+`?latitude=` +lt + `&longitude=` +lg;
+          let res = await fetch(url).then((rj) => rj.json()).then(data => {return data;}).catch(error => {});
+          if(res.response.status === 'success') { let jd = res.response; if(!document.getElementById(jd.data.button_config.scriptLocation)){
+          const hd = document.getElementsByTagName('head')[0], l = document.createElement('link'), bs = document.createElement('script'); 
+          l.rel = 'stylesheet'; l.type = 'text/css'; l.href = jd.data.button_config.cssLocation; l.onload = ()=> {hd.appendChild(bs)}; hd.appendChild(l);
+          bs.type = 'text/javascript'; bs.id =jd.data.button_config.scriptLocation; bs.src = jd.data.button_config.scriptLocation; bs.onload = ()=> { displayButton(jd.data);} } else {displayButton(jd.data);}}
+        }} catch(err) {
+        } 
+      }();
+    
 </script>
 
 
