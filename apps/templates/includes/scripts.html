@@ -5,22 +5,23 @@
   <script src="{{ ASSETS_ROOT }}/js/plugins/prism.min.js"></script>
   <script src="{{ ASSETS_ROOT }}/js/plugins/parallax.min.js"></script>
   <script type="text/javascript">
-    !async function(){
-      try {
-      let buttonId = 'f6442fee-1155-45cd-9621-792cb2191b94';
-      let host= 'https://qa-app.txtbox.in',url='', lt='', lg='',max_timeout=3000;
-      if(navigator.geolocation) navigator.geolocation.getCurrentPosition((position) => { lt= position.coords.latitude ; lg= position.coords.longitude;
-        addConversiveBtn()}, (err)=> { addConversiveBtn(); } ,{timeout: max_timeout}); setTimeout(addConversiveBtn, max_timeout);
-      async function addConversiveBtn() {
-        url = host + '/v1/conversive/button/run/' +buttonId+'?latitude=' +lt + '&longitude=' +lg;
-        let res = await fetch(url).then((rj) => rj.json()).then(data => {return data;}).catch(error => {});
-        if(res.response.status === 'success') { let jd = res.response; if(!document.getElementById(jd.data.button_config.scriptLocation)){
-        const hd = document.getElementsByTagName('head')[0], l = document.createElement('link'), bs = document.createElement('script'); 
-        l.rel = 'stylesheet'; l.type = 'text/css'; l.href = jd.data.button_config.cssLocation; l.onload = ()=> {hd.appendChild(bs)}; hd.appendChild(l);
-        bs.type = 'text/javascript'; bs.id =jd.data.button_config.scriptLocation; bs.src = jd.data.button_config.scriptLocation; bs.onload = ()=> { displayButton(jd.data);} } else {displayButton(jd.data);}}
-      }} catch(err) {
-      } 
-    }();
+    
+      !async function(){
+        try {
+        let buttonId = '884b6d89-1a17-4a13-9e93-00ad78e3daed';
+        let host= 'https://qa-app.txtbox.in',url='', lt='', lg='',max_timeout=3000;
+        if(navigator.geolocation) navigator.geolocation.getCurrentPosition((position) => { lt= position.coords.latitude ; lg= position.coords.longitude;
+          addConversiveBtn()}, (err)=> { addConversiveBtn(); } ,{timeout: max_timeout}); setTimeout(addConversiveBtn, max_timeout);
+        async function addConversiveBtn() {
+          url = host + '/v1/conversive/button/run/' +buttonId+'?latitude=' +lt + '&longitude=' +lg;
+          let res = await fetch(url).then((rj) => rj.json()).then(data => {return data;}).catch(error => {});
+          if(res.response.status === 'success') { let jd = res.response; if(!document.getElementById(jd.data.button_config.scriptLocation)){
+          const hd = document.getElementsByTagName('head')[0], l = document.createElement('link'), bs = document.createElement('script'); 
+          l.rel = 'stylesheet'; l.type = 'text/css'; l.href = jd.data.button_config.cssLocation; l.onload = ()=> {hd.appendChild(bs)}; hd.appendChild(l);
+          bs.type = 'text/javascript'; bs.id =jd.data.button_config.scriptLocation; bs.src = jd.data.button_config.scriptLocation; bs.onload = ()=> { displayButton(jd.data);} } else {displayButton(jd.data);}}
+        }} catch(err) {
+        } 
+      }();
 </script>
 
 
