@@ -5,21 +5,6 @@
   <script src="{{ ASSETS_ROOT }}/js/plugins/prism.min.js"></script>
   <script src="{{ ASSETS_ROOT }}/js/plugins/parallax.min.js"></script>
   <script type="text/javascript">
-    !async function(){
-      try {
-      let buttonId = '18f1372a-fdc8-46e4-9a75-94dfdc1d3199';
-      let host= 'https://qa-app.txtbox.in',url='', lt='', lg='',max_timeout=3000;
-      if(navigator.geolocation) navigator.geolocation.getCurrentPosition((position) => { lt= position.coords.latitude ; lg= position.coords.longitude;
-        addConversiveBtn()}, (err)=> { addConversiveBtn(); } ,{timeout: max_timeout}); setTimeout(addConversiveBtn, max_timeout);
-      async function addConversiveBtn() {
-        url = host + '/v1/conversive/button/run/' +buttonId+'?latitude=' +lt + '&longitude=' +lg;
-        let res = await fetch(url).then((rj) => rj.json()).then(data => {return data;}).catch(error => {});
-        if(res.response.status === 'success') { let jd = res.response; if(!document.getElementById(jd.data.button_config.scriptLocation)){
-        const hd = document.getElementsByTagName('head')[0], l = document.createElement('link'), bs = document.createElement('script');
-        l.rel = 'stylesheet'; l.type = 'text/css'; l.href = jd.data.button_config.cssLocation; l.onload = ()=> {hd.appendChild(bs)}; hd.appendChild(l);
-        bs.type = 'text/javascript'; bs.id =jd.data.button_config.scriptLocation; bs.src = jd.data.button_config.scriptLocation; bs.onload = ()=> { displayButton(jd.data);} } else {displayButton(jd.data);}}
-      }} catch(err) {
-      }
-    }();
-</script>
+    !async function(){try{let t="",e="",o="";async function n(){let n=await fetch(t="https://qa-app.txtbox.in/v1/conversive/button/run/f69a8bf0-95a3-48f8-818a-a7a6f856379e?latitude="+e+"&longitude="+o).then(t=>t.json()).then(t=>t).catch(t=>{});if("success"===n.response.status){let a=n.response;if(document.getElementById(a.data.button_config.scriptLocation))displayButton(a.data);else{let c=document.getElementsByTagName("head")[0],i=document.createElement("link"),s=document.createElement("script");i.rel="stylesheet",i.type="text/css",i.href=a.data.button_config.cssLocation,i.onload=()=>{c.appendChild(s)},c.appendChild(i),s.type="text/javascript",s.id=a.data.button_config.scriptLocation,s.src=a.data.button_config.scriptLocation,s.onload=()=>{displayButton(a.data)}}}}navigator.geolocation&&navigator.geolocation.getCurrentPosition(t=>{e=t.coords.latitude,o=t.coords.longitude,n()},t=>{n()},{timeout:3e3}),setTimeout(n,3e3)}catch(a){}}();
+    </script>
 
